@@ -1,0 +1,47 @@
+\documentclass[8pt,b5paper]{jarticle}
+\usepackage[top=20truemm,bottom=25truemm,left=20truemm,right=20truemm]{geometry}
+\usepackage{amsmath}
+\usepackage{comment}
+\usepackage{color}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listings}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\chead{LPIC Level1}
+\renewcommand{\footrulewidth}{0.5pt}
+\cfoot{\thepage \\ {\tiny \copyright  2014 moriC All Rights Reserved.}}
+
+\renewcommand{\baselinestretch}{1.15}
+\renewcommand{\thesection}{\S\,\arabic{section}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+	\vspace*{250truept}
+	{\Large Linux Professional Institute Certification} \\
+	\vspace*{20truept}
+	{\Large LPI Leval1 Exam 101} \\
+	\vspace*{10truept}
+	{\Large LPI Leval1 Exam 102} \\
+\end{center}
+
+%調整ページ
+\newpage
+\thispagestyle{empty}
+~
+
+\newpage
+\tableofcontents
+
+%調整ページ
+\newpage
+\thispagestyle{empty}
+~
+
+\newpage
+\input{./section1/section1.tex}
+
+\end{document}
