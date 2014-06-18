@@ -1,6 +1,114 @@
+% 第1章 システムアーキテクチャ
 \section{システムアーキテクチャ}
+\subsection{BIOS}
+\begin{description}
+	\item[入出力基本システム(BIOS : Basic Input Output System)]\mbox{}\\
+	コンピュータに接続されたディスクドライブ、キーボード、ビデオカードなどの周辺機器を制御するプログラム群のこと．
+		\begin{itemize}
+			\item{OSを起動するためのプログラムをディスクから読み込んで実行}
+			\item{デバイスの動作を設定}
+			\item{基本的な入出力を制御する}
+		\end{itemize}
+\end{description}
+
 \subsection{デバイス}
-\subsection{デバイス確認}
-\subsection{デバイスドライバロード}
+\subsubsection{デバイス確認}
+Linuxカーネルが認識しているデバイスは/proc以下で確認が可能(図\ref{001})．
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=10cm]{./section1/pic/001.eps}
+		\caption{/procの内容}
+		\label{001}
+	\end{center}
+\end{figure}
+
+\begin{table}[htb]
+  \begin{center}
+    \begin{tabular}{|l|l|} \hline
+      ファイル名 & 情報 \\ \hline
+      cpuinfo & CPU情報 \\ \hline
+      meminfo & メモリ情報 \\ \hline
+      net & ネットワーク情報 \\ \hline
+      mounts & マウントされたデバイス情報 \\ \hline
+      partitions & パーティション情報 \\ \hline
+      bus & bus情報 \\ \hline
+    \end{tabular}
+    \caption{/procのファイル例}
+  \end{center}
+\end{table}
+
+Linuxはハードウェアへのアクセスを抽象化するデバイスファイルを持っており，これのデバイスファイルの読み書きを通してハードウェアにアクセスする．
+このとき，/devディレクトリに接続されているデバイスが認識されていなければ利用できない(図\ref{002})．
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=10cm]{./section1/pic/002.eps}
+		\caption{/devの内容}
+		\label{002}
+	\end{center}
+\end{figure}
+
+デバイスを確認するためのコマンドも用意されている．
+
+\begin{table}[htb]
+  \begin{center}
+    \begin{tabular}{|l|l|} \hline
+      コマンド名 & 情報 \\ \hline
+      lspci & PCIデバイス情報(図\ref{003}) \\ \hline
+      lsusb & USBデバイス情報(図\ref{004}) \\ \hline
+      dmidecode & DMI情報(図\ref{005}) \\ \hline
+      fdesk -l & ディスクの空き容量情報 \\ \hline
+      free -m & メモリの空き容量情報 \\ \hline
+      bus & bus情報 \\ \hline
+    \end{tabular}
+    \caption{デバイス情報を確認できるコマンド例}
+  \end{center}
+\end{table}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=10cm]{./section1/pic/003.eps}
+		\caption{lspciの内容}
+		\label{003}
+	\end{center}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=10cm]{./section1/pic/004.eps}
+		\caption{lsusbの内容}
+		\label{004}
+	\end{center}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=10cm]{./section1/pic/005.eps}
+		\caption{dmidecodeの内容}
+		\label{005}
+	\end{center}
+\end{figure}
+
+\clearpage
+\subsubsection{デバイスドライバロード}
+\begin{description}
+	\item[デバイスドライバ(device driver)]\mbox{}\\
+	デバイスを利用するために必要な制御プログラムで必要なデバイスドライバを取り込むことを「ロードする」という．
+	基本的には自動的にロードされる．
+	\item[lsmod]\mbox{}\\
+	ロードされているカーネルモジュールを確認するコマンド(図\ref{006})
+		\begin{figure}[!h]
+			\begin{center}
+				\includegraphics[width=10cm]{./section1/pic/006.eps}
+				\caption{lsmodの内容}
+				\label{006}
+			\end{center}
+		\end{figure}
+	\item[modprobe]\mbox{}\\
+	手動でデバイスドライバをロードするコマンド
+\end{description}
+
+
+\clearpage
 \subsection{システムの起動}
 \subsection{ランレベル}
