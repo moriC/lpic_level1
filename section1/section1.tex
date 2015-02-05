@@ -111,4 +111,59 @@ Linuxはハードウェアへのアクセスを抽象化するデバイスファ
 
 \clearpage
 \subsection{システムの起動}
+\subsubsection{システム起動の流れ}
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=10cm]{./section1/pic/007.eps}
+		\caption{システム起動の流れ}
+		\label{007}
+	\end{center}
+\end{figure}
+\begin{enumerate}
+	\item BIOSではハードウェアのチェックや初期化を実行し，ディスクのブートセクタを読み出しブートローダへ制御を移す．
+	\item ブートローダでは	ハードディスクからカネールをメモリへ読み込む．
+	\item カーネルではメモリの初期化やシステムクロックの設定を実行し，initプログラム実行へ移す．
+	\item initプログラムでは初期化スクリプトを実行してランレベルに応じて指定したデーモンを起動する．
+\end{enumerate}
+
+\subsubsection{システム起動時イベント}
+\begin{description}
+	\item[dmesg]\mbox{}\\
+	システム起動時の処理を確認できるコマンド．カーネルが出力したメッセージを一時的に蓄えておくバッファの内容を表示する．/var/log/messageのログファイルにシステム起動時の状況が保存されている．(図\ref{008})
+		\begin{figure}[!h]
+			\begin{center}
+				\includegraphics[width=10cm]{./section1/pic/008.eps}
+				\caption{dmesgの内容(抜粋)}
+				\label{008}
+			\end{center}
+		\end{figure}
+\end{description}
+
+\subsubsection{initプロセス}
+\begin{description}
+	\item[initプロセス]\mbox{}\\
+	Linuxシステムで最初に実行されるプロセスで，/etc/inittabファイル(図\ref{009})の設定を読み込み，システムに必要なサービスを順次起動していく．一般的なUNIX系OSではSysVinitが実行される．
+		\begin{figure}[!h]
+			\begin{center}
+				\includegraphics[width=10cm]{./section1/pic/009.eps}
+				\caption{inittabの内容}
+				\label{009}
+			\end{center}
+		\end{figure}
+\end{description}
+\begin{description}
+	\item[SysVinit]\mbox{}\\
+　SystemV initの略．UNIX SystemVで採用された起動の仕組み．あらかじめ決められた順位サービスを起動していくため，サービスの起動時間によって全体の起動時間が変動する．
+		\begin{enumerate}
+			\item /etc/inittabファイルを読み込む．
+			\item /etc/rc.sysinitスクリプトを実行．
+			\item /etc/rcスクリプトを実行．
+			\item /etc/rcスクリプトが/etc/rc(ランレベル).dディレクトリ以下のスクリプトを実行．
+		\end{enumerate}
+	\item[Upstart]\mbox{}\\
+　イベント駆動型のinitデーモンで，ブート時のタスクの起動とシャットダウン時のタスクの停止を非同期に行い、同時にシステム動作中の管理を行う．
+	\item[systemd]\mbox{}\\
+　ソケット起動型サービスとバス起動型サービスを組み合わせたinitデーモンで，相互に依存したサービス群をより並列的に起動できる．
+\end{description}
+
 \subsection{ランレベル}
